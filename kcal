@@ -141,8 +141,7 @@ public class Kalkulatorkcal { // Klasa podstawowa, z której będziemy wychodzil
                 if (ProduktySpozyte.add(produkt)) { // Sprawdzamy, czy dodanie produktu do produktySpozyte się powiodło
                     Kalorycznosc.put(nazwa, kalorie); // Dodajemy informacje o danym produkcie do mapy Kalorycznosc
                     System.out.println("Produkt został dodany: " + produkt); // Wyświetlenie informacji o dodanym produkcie
-                } else {
-                    System.out.println("Ten produkt już został dodany."); // Gdy już produkt się powtórzy, wyskakuje o tym informacja
+
                 }
             } else if (wybor == 2) {  // Warunkowe wykonywanie kodu dla wybranej opcji nr 2
                 System.out.println("Produkty spożyte w ciągu dnia:"); // // Wyświetlenie informacji o dodanym produkcie
@@ -152,9 +151,11 @@ public class Kalkulatorkcal { // Klasa podstawowa, z której będziemy wychodzil
             } else if (wybor == 3) { // Warunkowe wykonywanie kodu dla wybranej opcji nr 3
                 double sumaKalorii = Kalorycznosc.values().stream().mapToDouble(Double::doubleValue).sum(); // Zmienna typu double, która przechowuje sumę kalorii spożytych produktów
                 System.out.printf("Łączna suma kalorii spożytych w ciągu dnia: %.2f kcal\n", sumaKalorii); // Wyświetlenie informacji o sumie kalorii
+
             } else if (wybor == 4) { //Warunkowe wykonywanie kodu dla wybranej opcji nr 4
                 System.out.println("To wszystko. Do zobaczenia!"); // Wyświetlenie informacji o zakończonym programie
                 break; // Natychmiastowe przerwanie pętli if
+
             } else { // W przypadku złego wyboru pojawia się komunikat
                 System.out.println("Niepoprawny wybór. Spróbuj ponownie.");
 
