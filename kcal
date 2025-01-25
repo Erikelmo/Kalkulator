@@ -1,0 +1,166 @@
+import java.util.HashMap; // Import klasy HashMap
+import java.util.HashSet; // Import klasy HashSet
+import java.util.Map; // Import interfejsu Map
+import java.util.Set; // Import interfejsu Set
+import java.util.Scanner; // Import klasy Scanner
+
+public class Kalkulatorkcal { // Klasa podstawowa, z której będziemy wychodzili z danymi
+
+
+    public static void main(String[] args) { // Inicjator do uruchomienia kodu
+
+        Scanner scanner = new Scanner(System.in); // Tworzymy klasę Scanner do wczytywania danych
+
+        System.out.println("Eryk Chwiałkowski"); // Wyświetlamy dane początkowe
+        System.out.println("122916"); // Numer albumu
+        System.out.println("Społeczna Akademia Nauk / Łódź / Polska"); // Nazwa szkoły
+        System.out.println(" ");
+        System.out.println("<<<<<<< INSTRUKCJA PROGRAMU >>>>>>>");
+        System.out.println(" ");
+        System.out.println("Poniższy program przedstawia kalkulator na zapotrzebowanie kaloryczne względem różnego typu danych.");
+        System.out.println("Korzysta on ze wzoru Harrisa-Benedicta, następnie program wyświetla liste produktów, które można dodawać po spożyciu posiłków.");
+        System.out.println("Następnie będziemy mogli zsumować liczbę skonsumowanych kalorii.");// Instrukcja programu
+        System.out.println(" ");
+        System.out.println("<<<<<<< START >>>>>>>>"); // Menu startu
+        System.out.println(" ");
+
+        System.out.print("Podaj swoją płeć (M dla mężczyzny, K dla kobiety): "); // Przedstawiamy pierwsze dane do wczytania płci użytkownika
+        char plec = scanner.next().charAt(0); // Odczytujemy słowo z wejścia wpisane przez użytkownika, program pobiera pierwszy znak i przypisuje do zmiennej plec
+
+        System.out.print("Podaj swoją wagę (w kilogramach): "); // Przedstawiamy drugie dane do wczytania wagi użytkownika
+        double waga = scanner.nextDouble(); // // Odczytujemy słowo z wejścia wpisane przez użytkownika, program pobiera pierwszy znak i przypisuje do zmiennej waga
+
+        System.out.print("Podaj swój wzrost (w centymetrach): "); // Przedstawiamy trzecie dane do wczytania wzrostu użytkownika
+        double wzrost = scanner.nextDouble(); // // Odczytujemy słowo z wejścia wpisane przez użytkownika, program pobiera pierwszy znak i przypisuje do zmiennej wzrost
+
+        System.out.print("Podaj swój wiek (w latach): "); // Przedstawiamy czwarte dane do wczytania wieku użytkownika
+        int wiek = scanner.nextInt(); // Odczytujemy słowo z wejścia wpisane przez użytkownika, program pobiera pierwszy znak i przypisuje do zmiennej wiek
+
+        double wzor; // Tworzymy zmienną do przechowywania wartości wzoru na zapotrzebowanie kaloryczne korzystając ze wzoru Harrisa-Benedicta
+
+
+        if (plec == 'M' || plec == 'm') { // Obliczamy wzór na podstawie wzoru Harrisa-Benedicta, biorąc pod uwagę płeć użytkownika
+
+            // Wzór na zapotrzebiwanie kaloryczne dla mężczyzn: 66,5 + (13,75 x masa ciała [kg]) + (5,003 x wzrost [cm]) – (6,775 x [wiek])
+            wzor = 66.5 + (13.75 * waga) + (5.003 * wzrost) - (6.775 * wiek);
+
+        } else if (plec == 'K' || plec == 'k') {
+
+            // Wzór na zapotrzebowanie kaloryczne dla kobiet: 655,1 + (9,563 x masa ciała [kg]) + (1,85 x wzrost [cm]) – (4,676 x [wiek])
+            wzor = 665.1 + (9.563 * waga) + (1.85 * wzrost) - (4.676 * wiek);
+
+        } else {
+            System.out.println("Wprowadzona płeć jest błędna. Użyj 'M' dla mężczyzny lub 'K' dla kobiety."); // Jeśli podana płeć nie będzie prawidłowa, program się zakończy
+            return;
+        }
+
+        System.out.println("Wybierz poziom aktywności fizycznej:"); // Po wpisaniu wcześniejszych danych prawidłowo następnie będą do wybrania poziomy aktywości ( od 1 do 5 )
+        System.out.println("1. Brak aktywności");
+        System.out.println("2. Niska aktywność (1-2 dni w tygodniu)");
+        System.out.println("3. Średnia aktywność (3-4 dni w tygodniu)");
+        System.out.println("4. Wysoka aktywność (5-6 dni w tygodniu)");
+        System.out.println("5. Bardzo wysoka aktywność (codziennie treningi)");
+        System.out.print("Wybierz poziom (1-5): ");
+
+        int poziomaktywnosci = scanner.nextInt();
+
+        double wynik; // Wyznaczamy zmienną double do przechowywania zapotrzebowania kalorycznego
+
+        switch (poziomaktywnosci) { // Obliczamy wynik końcowy na podstawie wybranego poziomu aktywności. Wybór analogiczny do wybranej wartości
+            case 1:
+                wynik = wzor * 1.21; // Minimalna aktywność - Pozycja nr 1
+                break;
+            case 2:
+                wynik = wzor * 1.37; // Niska aktywność - Pozycja nr 2
+                break;
+            case 3:
+                wynik = wzor * 1.56; // Średnia aktywność - Pozycja nr 3
+                break;
+            case 4:
+                wynik = wzor * 1.73; // Wysoka aktywność - Pozycja nr 4
+                break;
+            case 5:
+                wynik = wzor * 1.91; // Bardzo wysoka aktywność - Pozycja nr 5
+                break;
+
+            default: // Jeśli użytkownik wybrał inną pozycję niż z listy 1-5, wyświetlany będzie błąd i program się zakończy
+                System.out.println("Niepoprawny poziom aktywności. Wybierz wartość od 1 do 5.");
+                return;
+        }
+
+
+        System.out.printf("Twoje całkowite dzienne zapotrzebowanie kaloryczne wynosi: %.2f kcal\n", wynik);
+        System.out.println(" ");
+        System.out.print("Poniżej przedstawiam dla Ciebie zbiór produktów, które spożyjesz w ciągu dnia."); // // Wyświetlamy wynik końcowy zapotrzebowania kalorycznego
+
+        class Produkty { // Nowa klasa wewnętrzna Produkty
+            private final String nazwa; // Deklaruje pole nazwa w klasie Produkty
+            private final double kalorie; // Deklaruje pole kalorie w klasie Produkty
+
+            public Produkty(String nazwa, double kalorie) { // Konstruktor klasy Produkty
+                this.nazwa = nazwa; // Argument nazwa jest przypisywany do pola nazwa
+                this.kalorie = kalorie; // Wartość kalorie jest przypisany do pola kalorie
+            }
+
+            public String getNazwa() { // Getter zwracający nazwe produktu
+                return nazwa;
+            }
+
+            public double getKalorie() { // Getter zwracający wartość kalorii
+                return kalorie;
+            }
+
+            public String toString() {
+                return nazwa + " (" + kalorie + " kcal)"; // Zwracamy tekst nazwa i wartość kalorie
+            }
+        }
+
+        Set<Produkty> ProduktySpozyte = new HashSet<>(); // Zbiór przechowujący elementy dotyczące produktów
+        Map<String, Double> Kalorycznosc = new HashMap<>(); // Mapa przechowująca kalorie tych produktów
+
+        while (true) { // Pętla nieskończona, dopóki nie zostanie ręcznie przerwana
+
+            System.out.println(" Wybierz opcję:");
+            System.out.println("1. Dodaj produkt który dzisiaj spożywałeś lub będziesz spożywał");
+            System.out.println("2. Wyświetl produkty spożyte w ciągu dnia");
+            System.out.println("3. Wyświetl sumę kalorii");
+            System.out.println("4. Zakończ program");
+            System.out.print("Twój wybór: "); // Wybór opcji przez użytkownika
+
+            int wybor = scanner.nextInt(); // Odczytujemy liczbę wprowadzoną przez użytkownika z konsoli i przypisujemy ją do zmiennej wybor
+            scanner.nextLine(); // Program wstrzymuje działanie i czeka, aż użytkownik wpisze tekst oraz naciśnie klawisz Enter
+
+            if (wybor == 1) { // Warunkowe wykonywanie kodu dla wybranej opcji nr 1
+                System.out.print("Podaj nazwę produktu: "); // Wpisanie produktu
+                String nazwa = scanner.nextLine(); // Czekamy na ruch użytkownika
+                System.out.print("Podaj liczbę kalorii: "); // Wpisanie kalorii
+                double kalorie = scanner.nextDouble(); // Czekamy na ruch użytkownika
+                scanner.nextLine();
+
+                Produkty produkt = new Produkty(nazwa, kalorie); // Tworzenie nowego obiektu klasy Produkty
+                if (ProduktySpozyte.add(produkt)) { // Sprawdzamy, czy dodanie produktu do produktySpozyte się powiodło
+                    Kalorycznosc.put(nazwa, kalorie); // Dodajemy informacje o danym produkcie do mapy Kalorycznosc
+                    System.out.println("Produkt został dodany: " + produkt); // Wyświetlenie informacji o dodanym produkcie
+                } else {
+                    System.out.println("Ten produkt już został dodany."); // Gdy już produkt się powtórzy, wyskakuje o tym informacja
+                }
+            } else if (wybor == 2) {  // Warunkowe wykonywanie kodu dla wybranej opcji nr 2
+                System.out.println("Produkty spożyte w ciągu dnia:"); // // Wyświetlenie informacji o dodanym produkcie
+                for (Produkty produkt : ProduktySpozyte) { // Pętla, która przegląda wszystkie elementy w zbiorze Set ProduktySpozyte
+                    System.out.println(" " + produkt); // Wyświetlenie informacji o wszystkich produktach z kaloriami
+                }
+            } else if (wybor == 3) { // Warunkowe wykonywanie kodu dla wybranej opcji nr 3
+                double sumaKalorii = Kalorycznosc.values().stream().mapToDouble(Double::doubleValue).sum(); // Zmienna typu double, która przechowuje sumę kalorii spożytych produktów
+                System.out.printf("Łączna suma kalorii spożytych w ciągu dnia: %.2f kcal\n", sumaKalorii); // Wyświetlenie informacji o sumie kalorii
+            } else if (wybor == 4) { //Warunkowe wykonywanie kodu dla wybranej opcji nr 4
+                System.out.println("To wszystko. Do zobaczenia!"); // Wyświetlenie informacji o zakończonym programie
+                break; // Natychmiastowe przerwanie pętli if
+            } else { // W przypadku złego wyboru pojawia się komunikat
+                System.out.println("Niepoprawny wybór. Spróbuj ponownie.");
+
+            }
+
+        }
+        scanner.close(); // Zamykamy obiekt klasy Scanner
+    }
+}
